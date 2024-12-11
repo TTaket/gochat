@@ -9,12 +9,6 @@ import (
 	"gorm.io/gorm"
 )
 
-type Product struct {
-	gorm.Model
-	Code  string
-	Price uint
-}
-
 func main() {
 	db, err := gorm.Open(mysql.Open("testuser:ABCabc123123...@tcp(127.0.0.1:3306)/gochat?parseTime=true"), &gorm.Config{})
 	if err != nil {
