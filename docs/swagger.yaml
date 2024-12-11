@@ -1,0 +1,52 @@
+info:
+  contact: {}
+paths:
+  /index:
+    get:
+      consumes:
+      - application/json
+      description: get index
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - 首页
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: ping test
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - Ping
+  /user/getUserList:
+    get:
+      consumes:
+      - application/json
+      description: get userlist
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: user list是用户名列表
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - UserInfo
+swagger: "2.0"
