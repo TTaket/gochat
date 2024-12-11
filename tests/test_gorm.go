@@ -1,26 +1,21 @@
-package main
+package tests
 
 import (
 	"fmt"
 
 	models "github.com/TTaket/gochat/models"
-
-	"gorm.io/driver/mysql"
-	"gorm.io/gorm"
+	"github.com/TTaket/gochat/utils"
 )
 
-func main() {
-	db, err := gorm.Open(mysql.Open("testuser:ABCabc123123...@tcp(127.0.0.1:3306)/gochat?parseTime=true"), &gorm.Config{})
-	if err != nil {
-		panic("failed to connect database")
-	}
+func TestGorm() {
+	db := utils.GetDB()
 
 	// 迁移 schema 在数据库中创建或更新相应的表结构。
 	db.AutoMigrate(&models.UserBasic{})
 
 	// Create
 	user := models.UserBasic{
-		Name:       "N1215",
+		Name:       "TestGorm",
 		PassWord:   "123456",
 		Phone:      "12345678901",
 		Email:      "aa@aa.com",
@@ -34,10 +29,10 @@ func main() {
 
 	// Read
 	var userget models.UserBasic
-	db.First(&userget, "Name = ?", "N1215") // 查找 code 字段值为 D42 的记录
+	db.First(&userget, "Name = ?", "TestGorm") // 查找 code 字段值为 D42 的记录
 	fmt.Println(userget)
 	// Update
-	db.Model(&userget).Update("Name", "N1216")
+	db.Model(&userget).Update("PassWord", "TestGorm_Updated_PassWord")
 
 	// // Update - 更新多个字段
 	// db.Model(&product).Updates(Product{Price: 200, Code: "F42"}) // 仅更新非零值字段
