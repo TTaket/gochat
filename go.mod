@@ -3,6 +3,7 @@ module github.com/TTaket/gochat
 go 1.23.4
 
 require (
+	github.com/asaskevich/govalidator v0.0.0-20230301143203-a9d515a09cc2
 	github.com/gin-gonic/gin v1.10.0
 	github.com/spf13/viper v1.19.0
 	github.com/swaggo/files v1.0.1

@@ -29,19 +29,128 @@ paths:
             type: string
       tags:
       - Ping
-  /user/getUserList:
+  /user/createUser:
     get:
-      consumes:
-      - application/json
-      description: get userlist
-      produces:
-      - application/json
+      description: create user
+      parameters:
+      - description: 用户名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: 手机号
+        in: query
+        name: phone
+        required: true
+        type: string
       responses:
         "200":
           description: user list是用户名列表
           schema:
             additionalProperties: true
             type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - UserInfo
+  /user/deleteUserByID:
+    get:
+      description: delete user
+      parameters:
+      - description: 用户ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: Delete user success
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - UserInfo
+  /user/getUserByID:
+    get:
+      description: get userinfo by id
+      parameters:
+      - description: 用户ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      responses:
+        "200":
+          description: user list是用户名列表
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - UserInfo
+  /user/getUserList:
+    get:
+      description: get userlist
+      responses:
+        "200":
+          description: user list是用户列表
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - UserInfo
+  /user/updateUser:
+    post:
+      description: update user
+      parameters:
+      - description: 用户ID
+        in: query
+        name: id
+        required: true
+        type: integer
+      - description: 用户名
+        in: query
+        name: name
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        type: string
+      - description: 手机号
+        in: query
+        name: phone
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        type: string
+      - description: 身份
+        in: query
+        name: identity
+        type: string
+      responses:
         "500":
           description: 错误信息
           schema:
