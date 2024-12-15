@@ -68,14 +68,14 @@ const docTemplate = `{
                 "parameters": [
                     {
                         "type": "string",
-                        "description": "用户名",
+                        "description": "用户名 6-20位",
                         "name": "name",
                         "in": "query",
                         "required": true
                     },
                     {
                         "type": "string",
-                        "description": "密码",
+                        "description": "密码 6-20位",
                         "name": "password",
                         "in": "query",
                         "required": true
@@ -86,6 +86,12 @@ const docTemplate = `{
                         "name": "phone",
                         "in": "query",
                         "required": true
+                    },
+                    {
+                        "type": "string",
+                        "description": "邮箱",
+                        "name": "email",
+                        "in": "query"
                     }
                 ],
                 "responses": {

@@ -5,6 +5,7 @@ import (
 	"os"
 	"time"
 
+	"github.com/TTaket/gochat/models"
 	viper "github.com/spf13/viper"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -29,6 +30,10 @@ func InitMysql() error {
 	if err != nil {
 		return err
 	}
+
+	// 迁移 schema 在数据库中创建或更新相应的表结构。
+	DB.AutoMigrate(&models.UserBasic{})
+
 	return nil
 }
 

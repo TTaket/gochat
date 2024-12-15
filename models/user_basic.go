@@ -3,16 +3,17 @@ package models
 import (
 	"strconv"
 
+	govalidator "github.com/asaskevich/govalidator"
 	"gorm.io/gorm"
 )
 
 type UserBasic struct {
 	gorm.Model
 
-	Name          string
-	PassWord      string
-	Phone         string `valid:"matches(^1[3-9]\\d{9}$)"`
-	Email         string `valid:"email"`
+	Name          string `gorm:"not null;unique" valid:"username_valid,required"` // 用户名长度 6-20 位
+	PassWord      string `gorm:"not null" valid:"password_valid,required"`        // 密码长度 6-20 位
+	Phone         string `gorm:"not null;unique" valid:"matches(^1[3-9]\\d{9}$),required"`
+	Email         string `gorm:"not null;unique" valid:"email,required"`
 	Identity      string
 	ClientIp      string
 	ClientPort    string
@@ -150,4 +151,15 @@ func DeleteUserByID(DB *gorm.DB, id int) error {
 
 	// 删除成功，返回 nil 错误
 	return nil
+}
+
+func init() {
+	// for validation
+	govalidator.TagMap["username_valid"] = govalidator.Validator(func(str string) bool {
+		return govalidator.Matches(str, "^[a-zA-Z0-9]{6,20}$")
+	})
+
+	govalidator.TagMap["password_valid"] = govalidator.Validator(func(str string) bool {
+		return govalidator.Matches(str, "^[a-zA-Z0-9]{6,20}$")
+	})
 }

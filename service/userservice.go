@@ -74,9 +74,10 @@ func GetUserByID(c *gin.Context) {
 // CreateUser
 // @Description create user
 // @Tags UserInfo
-// @param name query string true "用户名"
-// @param password query string true "密码"
+// @param name query string true "用户名 6-20位"
+// @param password query string true "密码 6-20位"
 // @param phone query string true "手机号"
+// @param email query string false "邮箱"
 // @Success 200 {object} map[string]interface{} "user list是用户名列表"
 // @Failure 500 {object} map[string]interface{} "错误信息"
 // @Router /user/createUser [get]
@@ -85,6 +86,7 @@ func CreateUser(c *gin.Context) {
 	user.Name = c.Query("name")
 	user.PassWord = c.Query("password")
 	user.Phone = c.Query("phone")
+	user.Email = c.Query("email")
 
 	//检验参数
 	if ok, err := govalidator.ValidateStruct(user); !ok {
