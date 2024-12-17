@@ -10,10 +10,11 @@ import (
 type UserBasic struct {
 	gorm.Model
 
-	Name          string `gorm:"not null;unique" valid:"username_valid,required"` // 用户名长度 6-20 位
-	PassWord      string `gorm:"not null" valid:"password_valid,required"`        // 密码长度 6-20 位
-	Phone         string `gorm:"not null;unique" valid:"matches(^1[3-9]\\d{9}$),required"`
-	Email         string `gorm:"not null;unique" valid:"email,required"`
+	Name          string `gorm:"not null;unique" valid:"username_valid"` // 用户名长度 6-20 位
+	PassWord      string `gorm:"not null" valid:"password_valid"`        // 密码长度 6-20 位
+	Phone         string `gorm:"not null;unique" valid:"matches(^1[3-9]\\d{9}$)"`
+	Email         string `gorm:"not null;unique" valid:"email"`
+	Salt          string `gorm:"not null"`
 	Identity      string
 	ClientIp      string
 	ClientPort    string
@@ -111,6 +112,21 @@ func GetUsersByName(DB *gorm.DB, name string) ([]*UserBasic, error) {
 	// 查询成功，返回结果和 nil 错误
 	return users, nil
 }
+func GetUserByName(DB *gorm.DB, name string) (*UserBasic, error) {
+	// 初始化一个 UserBasic 对象
+	user := &UserBasic{}
+
+	// 执行查询
+	result := DB.Where("name = ?", name).First(user)
+	if result.Error != nil {
+		// 如果发生错误，返回错误
+		return nil, result.Error
+	}
+
+	// 查询成功，返回结果和 nil 错误
+	return user, nil
+}
+
 func GetUserByPhone(DB *gorm.DB, phone string) (*UserBasic, error) {
 	// 初始化一个 UserBasic 对象
 	user := &UserBasic{}

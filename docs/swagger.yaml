@@ -125,6 +125,33 @@ paths:
             type: object
       tags:
       - UserInfo
+  /user/login:
+    post:
+      description: user login
+      parameters:
+      - description: 用户名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Login success
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - UserInfo
   /user/updateUser:
     post:
       description: update user
