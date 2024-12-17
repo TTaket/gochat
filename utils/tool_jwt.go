@@ -2,7 +2,7 @@ package utils
 
 import "github.com/golang-jwt/jwt/v5"
 
-// MyClaims
+// MyClaims aa
 type MyClaims struct {
 	jwt.RegisteredClaims
 	Username string `json:"username"`
@@ -15,7 +15,7 @@ var SecretKey = []byte("secret")
 func GenerateToken(username string) (string, error) {
 	claims := MyClaims{
 		RegisteredClaims: jwt.RegisteredClaims{},
-		Username:       username,
+		Username:         username,
 	}
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(SecretKey)
