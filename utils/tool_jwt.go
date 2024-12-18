@@ -2,14 +2,14 @@ package utils
 
 import "github.com/golang-jwt/jwt/v5"
 
-// MyClaims aa
+// MyClaims
 type MyClaims struct {
 	jwt.RegisteredClaims
 	Username string `json:"username"`
 }
 
 // SecretKey
-var SecretKey = []byte("secret")
+var SecretKey = []byte("my_sercret_key")
 
 // GenerateToken
 func GenerateToken(username string) (string, error) {
