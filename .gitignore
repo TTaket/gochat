@@ -1,1 +1,28 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
 config/
+# Test binary, build output
+*.out
+*.log
+
+# Dependency directories
+vendor/
+node_modules/
+
+# OS generated files
+.DS_Store
+Thumbs.db
+
+# Go specific
+*.exe
+*.test
+*.out
+*.log
+*.prof
+*.pb.go
+*.pb.gw.go
+*.sum
+*.mod

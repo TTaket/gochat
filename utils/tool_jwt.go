@@ -1,6 +1,9 @@
 package utils
 
-import "github.com/golang-jwt/jwt/v5"
+import (
+	"github.com/golang-jwt/jwt/v5"
+	viper "github.com/spf13/viper"
+)
 
 // MyClaims
 type MyClaims struct {
@@ -9,7 +12,7 @@ type MyClaims struct {
 }
 
 // SecretKey
-var SecretKey = []byte("my_sercret_key")
+var SecretKey = []byte(viper.GetString("jwt.serect"))
 
 // GenerateToken
 func GenerateToken(username string) (string, error) {
