@@ -4,6 +4,7 @@
 *.so
 *.dylib
 config/
+sql/
 # Test binary, build output
 *.out
 *.log
