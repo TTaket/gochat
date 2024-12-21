@@ -6,11 +6,11 @@ import (
 )
 
 // RedisClient
-var RedisClient *redis.Client
+var redisClient *redis.Client
 
 // InitRedis
 func InitRedis() {
-	RedisClient = redis.NewClient(&redis.Options{
+	redisClient = redis.NewClient(&redis.Options{
 		Addr:     viper.GetString("redis.addr"),
 		Password: viper.GetString("redis.password"),
 		DB:       viper.GetInt("redis.db"),
@@ -19,8 +19,8 @@ func InitRedis() {
 
 // GetRedisClient
 func GetRedisClient() *redis.Client {
-	if RedisClient == nil {
+	if redisClient == nil {
 		InitRedis()
 	}
-	return RedisClient
+	return redisClient
 }

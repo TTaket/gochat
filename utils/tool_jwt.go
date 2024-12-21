@@ -1,6 +1,8 @@
 package utils
 
 import (
+	"time"
+
 	"github.com/golang-jwt/jwt/v5"
 	viper "github.com/spf13/viper"
 )
@@ -13,6 +15,12 @@ type MyClaims struct {
 
 // SecretKey
 var SecretKey = []byte(viper.GetString("jwt.serect"))
+var jwtExpireDuration = time.Hour * 2
+
+// get jwt expire duration
+func GetJwtExpireDuration() time.Duration {
+	return jwtExpireDuration
+}
 
 // GenerateToken
 func GenerateToken(username string) (string, error) {
@@ -20,6 +28,7 @@ func GenerateToken(username string) (string, error) {
 		RegisteredClaims: jwt.RegisteredClaims{},
 		Username:         username,
 	}
+	claims.ExpiresAt = jwt.NewNumericDate(time.Now().Add(jwtExpireDuration))
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
 	return token.SignedString(SecretKey)
 }
@@ -39,7 +48,7 @@ func ParseToken(tokenString string) (*MyClaims, error) {
 	return claims, nil
 }
 
-// VerifyToken
+// VerifyToken vaild 验证合法性 是否被篡改
 func VerifyToken(tokenString string) (bool, error) {
 	_, err := jwt.Parse(tokenString, func(token *jwt.Token) (interface{}, error) {
 		return SecretKey, nil

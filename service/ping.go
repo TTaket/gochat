@@ -4,7 +4,7 @@ import "github.com/gin-gonic/gin"
 
 // GetPing
 // @Description ping test
-// @Tags Ping
+// @Tags test
 // @Accept json
 // @Produce json
 // @Success 200 {string} pong

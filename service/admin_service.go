@@ -11,10 +11,10 @@ import (
 
 // GetUserList
 // @Description get userlist
-// @Tags UserInfo
+// @Tags Admin
 // @Success 200 {object} map[string]interface{} "user list是用户列表"
 // @Failure 500 {object} map[string]interface{} "错误信息"
-// @Router /user/getUserList [get]
+// @Router /admin/getUserList [get]
 func GetUserList(c *gin.Context) {
 	var userList []*models.UserBasic
 	var ok error
@@ -39,11 +39,11 @@ func GetUserList(c *gin.Context) {
 
 // GetUserByID
 // @Description get userinfo by id
-// @Tags UserInfo
+// @Tags Admin
 // @param id query int true "用户ID"
 // @Success 200 {object} map[string]interface{} "user list是用户名列表"
 // @Failure 500 {object} map[string]interface{} "错误信息"
-// @Router /user/getUserByID [get]
+// @Router /admin/getUserByID [get]
 func GetUserByID(c *gin.Context) {
 	var userInfo *models.UserBasic
 	var ok error
@@ -73,14 +73,14 @@ func GetUserByID(c *gin.Context) {
 
 // CreateUser
 // @Description create user
-// @Tags UserInfo
+// @Tags Admin
 // @param name query string true "用户名 6-20位"
 // @param password query string true "密码 6-20位"
 // @param phone query string true "手机号"
 // @param email query string false "邮箱"
 // @Success 200 {object} map[string]interface{} "user list是用户名列表"
 // @Failure 500 {object} map[string]interface{} "错误信息"
-// @Router /user/createUser [get]
+// @Router /admin/createUser [get]
 func CreateUser(c *gin.Context) {
 	user := models.UserBasic{}
 	user.Name = c.Query("name")
@@ -115,11 +115,11 @@ func CreateUser(c *gin.Context) {
 
 // DeleteUserByID
 // @Description delete user
-// @Tags UserInfo
+// @Tags Admin
 // @param id query int true "用户ID"
 // @Success 200 {object} map[string]interface{} "Delete user success"
 // @Failure 500 {object} map[string]interface{} "错误信息"
-// @Router /user/deleteUserByID [get]
+// @Router /admin/deleteUserByID [get]
 func DeleteUserByID(c *gin.Context) {
 	userId := c.Query("id")
 	userIdInt, err := strconv.Atoi(userId)
@@ -144,7 +144,7 @@ func DeleteUserByID(c *gin.Context) {
 
 // UpdateUser
 // @Description update user
-// @Tags UserInfo
+// @Tags Admin
 // @param id query int true "用户ID"
 // @param name query string false "用户名"
 // @param password query string false "密码"
@@ -153,7 +153,7 @@ func DeleteUserByID(c *gin.Context) {
 // @param identity query string false "身份"
 // Success 200 {object} map[string]interface{} "Update user success"
 // @Failure 500 {object} map[string]interface{} "错误信息"
-// @Router /user/updateUser [post]
+// @Router /admin/updateUser [post]
 func UpdateUser(c *gin.Context) {
 	userId := c.Query("id")
 	userIdInt, err := strconv.Atoi(userId)
@@ -214,49 +214,3 @@ func UpdateUser(c *gin.Context) {
 		"message": "Update user success",
 	})
 }
-
-// Login
-// @Description user login
-// @Tags UserInfo
-// @param name query string true "用户名"
-// @param password query string true "密码"
-// @Success 200 {object} map[string]interface{} "Login success"
-// @Failure 500 {object} map[string]interface{} "错误信息"
-// @Router /user/login [post]
-func Login(c *gin.Context) {
-	user := models.UserBasic{}
-	user.Name = c.Query("name")
-	user.PassWord = c.Query("password")
-
-	//检验参数
-	if ok, err := govalidator.ValidateStruct(user); !ok {
-		c.JSON(400, gin.H{
-			"message": "invalid user info",
-			"error":   err.Error(),
-		})
-		return
-	}
-
-	//get user info
-	userInfo, ok := models.GetUserByName(utils.GetDB(), user.Name)
-	if ok != nil {
-		c.JSON(500, gin.H{
-			"message": "server error",
-			"error":   ok.Error(),
-		})
-		return
-	}
-
-	//check password
-	if userInfo.PassWord != utils.GeneratePassword(user.PassWord, userInfo.Salt) {
-		c.JSON(400, gin.H{
-			"message": "password error",
-		})
-		return
-	}
-
-	c.JSON(200, gin.H{
-		"message": "Login success",
-	})
-}
-

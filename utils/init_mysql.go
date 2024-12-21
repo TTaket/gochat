@@ -12,7 +12,7 @@ import (
 	"gorm.io/gorm/logger"
 )
 
-var DB *gorm.DB
+var mysqlDB *gorm.DB
 
 func InitMysql() error {
 	var err error
@@ -26,20 +26,20 @@ func InitMysql() error {
 		},
 	)
 
-	DB, err = gorm.Open(mysql.Open(viper.GetString("mysql.dsn")), &gorm.Config{Logger: newlogger})
+	mysqlDB, err = gorm.Open(mysql.Open(viper.GetString("mysql.dsn")), &gorm.Config{Logger: newlogger})
 	if err != nil {
 		return err
 	}
 
 	// 迁移 schema 在数据库中创建或更新相应的表结构。
-	DB.AutoMigrate(&models.UserBasic{})
+	mysqlDB.AutoMigrate(&models.UserBasic{})
 
 	return nil
 }
 
 func GetDB() *gorm.DB { // TODO add mutex
-	if DB == nil {
+	if mysqlDB == nil {
 		InitMysql()
 	}
-	return DB
+	return mysqlDB
 }

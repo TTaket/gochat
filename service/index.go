@@ -4,7 +4,7 @@ import "github.com/gin-gonic/gin"
 
 // GetIndex
 // @Description get index
-// @Tags 首页
+// @Tags test
 // @Accept json
 // @Produce json
 // @Success 200 {string} index

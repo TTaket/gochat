@@ -1,35 +1,7 @@
 info:
   contact: {}
 paths:
-  /index:
-    get:
-      consumes:
-      - application/json
-      description: get index
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-      tags:
-      - 首页
-  /ping:
-    get:
-      consumes:
-      - application/json
-      description: ping test
-      produces:
-      - application/json
-      responses:
-        "200":
-          description: OK
-          schema:
-            type: string
-      tags:
-      - Ping
-  /user/createUser:
+  /admin/createUser:
     get:
       description: create user
       parameters:
@@ -64,8 +36,8 @@ paths:
             additionalProperties: true
             type: object
       tags:
-      - UserInfo
-  /user/deleteUserByID:
+      - Admin
+  /admin/deleteUserByID:
     get:
       description: delete user
       parameters:
@@ -86,8 +58,8 @@ paths:
             additionalProperties: true
             type: object
       tags:
-      - UserInfo
-  /user/getUserByID:
+      - Admin
+  /admin/getUserByID:
     get:
       description: get userinfo by id
       parameters:
@@ -108,8 +80,8 @@ paths:
             additionalProperties: true
             type: object
       tags:
-      - UserInfo
-  /user/getUserList:
+      - Admin
+  /admin/getUserList:
     get:
       description: get userlist
       responses:
@@ -124,35 +96,8 @@ paths:
             additionalProperties: true
             type: object
       tags:
-      - UserInfo
-  /user/login:
-    post:
-      description: user login
-      parameters:
-      - description: 用户名
-        in: query
-        name: name
-        required: true
-        type: string
-      - description: 密码
-        in: query
-        name: password
-        required: true
-        type: string
-      responses:
-        "200":
-          description: Login success
-          schema:
-            additionalProperties: true
-            type: object
-        "500":
-          description: 错误信息
-          schema:
-            additionalProperties: true
-            type: object
-      tags:
-      - UserInfo
-  /user/updateUser:
+      - Admin
+  /admin/updateUser:
     post:
       description: update user
       parameters:
@@ -188,5 +133,96 @@ paths:
             additionalProperties: true
             type: object
       tags:
-      - UserInfo
+      - Admin
+  /index:
+    get:
+      consumes:
+      - application/json
+      description: get index
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - test
+  /login:
+    post:
+      description: user login
+      parameters:
+      - description: 用户名
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 密码
+        in: query
+        name: password
+        required: true
+        type: string
+      responses:
+        "200":
+          description: Login success
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - User
+  /ping:
+    get:
+      consumes:
+      - application/json
+      description: ping test
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+      tags:
+      - test
+  /register:
+    post:
+      description: register user
+      parameters:
+      - description: 用户名 6-20位
+        in: query
+        name: name
+        required: true
+        type: string
+      - description: 密码 6-20位
+        in: query
+        name: password
+        required: true
+        type: string
+      - description: 手机号
+        in: query
+        name: phone
+        required: true
+        type: string
+      - description: 邮箱
+        in: query
+        name: email
+        type: string
+      responses:
+        "200":
+          description: user list是用户名列表
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: 错误信息
+          schema:
+            additionalProperties: true
+            type: object
+      tags:
+      - User
 swagger: "2.0"
