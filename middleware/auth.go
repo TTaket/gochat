@@ -13,13 +13,14 @@ func JWTAuthMiddleware() gin.HandlerFunc {
 	return func(c *gin.Context) {
 		// get jwt from header
 		jwtTokenString := c.GetHeader("Authorization")
-		if jwtTokenString == "" {
+		if jwtTokenString == "" || len(jwtTokenString) < len("Bearer ") {
 			c.JSON(401, gin.H{
 				"message": "no jwt authorization in header",
 			})
 			c.Abort()
 			return
 		}
+		jwtTokenString = jwtTokenString[len("Bearer "):]
 
 		// verify jwt
 		ok, err := utils.VerifyToken(jwtTokenString)

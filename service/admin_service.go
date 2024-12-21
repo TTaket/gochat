@@ -12,6 +12,7 @@ import (
 // GetUserList
 // @Description get userlist
 // @Tags Admin
+// @Security BearerAuth
 // @Success 200 {object} map[string]interface{} "user list是用户列表"
 // @Failure 500 {object} map[string]interface{} "错误信息"
 // @Router /admin/getUserList [get]
@@ -40,6 +41,7 @@ func GetUserList(c *gin.Context) {
 // GetUserByID
 // @Description get userinfo by id
 // @Tags Admin
+// @Security BearerAuth
 // @param id query int true "用户ID"
 // @Success 200 {object} map[string]interface{} "user list是用户名列表"
 // @Failure 500 {object} map[string]interface{} "错误信息"
@@ -74,6 +76,7 @@ func GetUserByID(c *gin.Context) {
 // CreateUser
 // @Description create user
 // @Tags Admin
+// @Security BearerAuth
 // @param name query string true "用户名 6-20位"
 // @param password query string true "密码 6-20位"
 // @param phone query string true "手机号"
@@ -116,6 +119,7 @@ func CreateUser(c *gin.Context) {
 // DeleteUserByID
 // @Description delete user
 // @Tags Admin
+// @Security BearerAuth
 // @param id query int true "用户ID"
 // @Success 200 {object} map[string]interface{} "Delete user success"
 // @Failure 500 {object} map[string]interface{} "错误信息"
@@ -145,13 +149,14 @@ func DeleteUserByID(c *gin.Context) {
 // UpdateUser
 // @Description update user
 // @Tags Admin
+// @Security BearerAuth
 // @param id query int true "用户ID"
 // @param name query string false "用户名"
 // @param password query string false "密码"
 // @param phone query string false "手机号"
 // @param email query string false "邮箱"
 // @param identity query string false "身份"
-// Success 200 {object} map[string]interface{} "Update user success"
+// @Success 200 {object} map[string]interface{} "Update user success"
 // @Failure 500 {object} map[string]interface{} "错误信息"
 // @Router /admin/updateUser [post]
 func UpdateUser(c *gin.Context) {

@@ -1,5 +1,8 @@
 info:
   contact: {}
+  description: This is a sample server.
+  title: GoChat API
+  version: "1.0"
 paths:
   /admin/createUser:
     get:
@@ -35,6 +38,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - BearerAuth: []
       tags:
       - Admin
   /admin/deleteUserByID:
@@ -57,6 +62,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - BearerAuth: []
       tags:
       - Admin
   /admin/getUserByID:
@@ -79,6 +86,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - BearerAuth: []
       tags:
       - Admin
   /admin/getUserList:
@@ -95,6 +104,8 @@ paths:
           schema:
             additionalProperties: true
             type: object
+      security:
+      - BearerAuth: []
       tags:
       - Admin
   /admin/updateUser:
@@ -127,11 +138,18 @@ paths:
         name: identity
         type: string
       responses:
+        "200":
+          description: Update user success
+          schema:
+            additionalProperties: true
+            type: object
         "500":
           description: 错误信息
           schema:
             additionalProperties: true
             type: object
+      security:
+      - BearerAuth: []
       tags:
       - Admin
   /index:
@@ -225,4 +243,9 @@ paths:
             type: object
       tags:
       - User
+securityDefinitions:
+  BearerAuth:
+    in: header
+    name: Authorization
+    type: apiKey
 swagger: "2.0"

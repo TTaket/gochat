@@ -5,6 +5,13 @@ import (
 	"github.com/TTaket/gochat/utils"
 )
 
+// @title GoChat API
+// @version 1.0
+// @description This is a sample server.
+// @securityDefinitions.apikey BearerAuth
+// @in header
+// @name Authorization
+
 func main() {
 	utils.InitConfig()
 

@@ -17,6 +17,11 @@ const docTemplate = `{
     "paths": {
         "/admin/createUser": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "create user",
                 "tags": [
                     "Admin"
@@ -70,6 +75,11 @@ const docTemplate = `{
         },
         "/admin/deleteUserByID": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "delete user",
                 "tags": [
                     "Admin"
@@ -103,6 +113,11 @@ const docTemplate = `{
         },
         "/admin/getUserByID": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "get userinfo by id",
                 "tags": [
                     "Admin"
@@ -136,6 +151,11 @@ const docTemplate = `{
         },
         "/admin/getUserList": {
             "get": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "get userlist",
                 "tags": [
                     "Admin"
@@ -160,6 +180,11 @@ const docTemplate = `{
         },
         "/admin/updateUser": {
             "post": {
+                "security": [
+                    {
+                        "BearerAuth": []
+                    }
+                ],
                 "description": "update user",
                 "tags": [
                     "Admin"
@@ -204,6 +229,13 @@ const docTemplate = `{
                     }
                 ],
                 "responses": {
+                    "200": {
+                        "description": "Update user success",
+                        "schema": {
+                            "type": "object",
+                            "additionalProperties": true
+                        }
+                    },
                     "500": {
                         "description": "错误信息",
                         "schema": {
@@ -351,17 +383,24 @@ const docTemplate = `{
                 }
             }
         }
+    },
+    "securityDefinitions": {
+        "BearerAuth": {
+            "type": "apiKey",
+            "name": "Authorization",
+            "in": "header"
+        }
     }
 }`
 
 // SwaggerInfo holds exported Swagger Info so clients can modify it
 var SwaggerInfo = &swag.Spec{
-	Version:          "",
+	Version:          "1.0",
 	Host:             "",
 	BasePath:         "",
 	Schemes:          []string{},
-	Title:            "",
-	Description:      "",
+	Title:            "GoChat API",
+	Description:      "This is a sample server.",
 	InfoInstanceName: "swagger",
 	SwaggerTemplate:  docTemplate,
 	LeftDelim:        "{{",
