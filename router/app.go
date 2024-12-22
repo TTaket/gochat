@@ -21,13 +21,19 @@ func Router() *gin.Engine {
 	r.POST("/register", service.Register)
 
 	admin := r.Group("/admin")
-	admin.Use(middleware.JWTAuthMiddleware())
+	admin.Use(middleware.AdminAuthMiddleware())
 	{
 		admin.GET("/getUserList", service.GetUserList)
 		admin.GET("/createUser", service.CreateUser)
 		admin.GET("/getUserByID", service.GetUserByID)
 		admin.GET("/deleteUserByID", service.DeleteUserByID)
 		admin.POST("/updateUser", service.UpdateUser)
+	}
+
+	user := r.Group("/user")
+	user.Use(middleware.JWTAuthMiddleware())
+	{
+
 	}
 	return r
 }
