@@ -155,15 +155,22 @@ func AdminAuthMiddleware() gin.HandlerFunc {
 		}
 
 		// check admin
-		var adminMap map[string]interface{} = viper.GetStringMap("admin")
+		adminMapTemp := viper.GetStringMap("admin")
+		var adminMap = make(map[string]bool)
+		for _, v := range adminMapTemp {
+			if str, ok := v.(string); ok {
+				adminMap[str] = true
+			}
+		}
 		if _, ok := adminMap[jwtInfo.Username]; !ok {
 			c.JSON(401, gin.H{
 				"message":     "you are user but not admin",
-				"youusername": jwtInfo.Username,
+				"yoursername": jwtInfo.Username,
 			})
 			c.Abort()
 			return
 		}
+
 		c.Next()
 	}
 }

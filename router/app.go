@@ -21,6 +21,7 @@ func Router() *gin.Engine {
 	r.POST("/register", service.Register)
 
 	admin := r.Group("/admin")
+
 	admin.Use(middleware.AdminAuthMiddleware())
 	{
 		admin.GET("/getUserList", service.GetUserList)
